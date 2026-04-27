@@ -1,0 +1,1458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Zeyad Elsayed | Network & Security Engineer</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #050a0f;
+    --surface: #0a1520;
+    --border: #0f2535;
+    --accent: #00d4ff;
+    --accent2: #00ff88;
+    --text: #c8dde8;
+    --muted: #4a6a7a;
+    --white: #e8f4f8;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: var(--bg); color: var(--text); font-family: 'Syne', sans-serif; overflow-x: hidden; }
+  body::before {
+    content: ''; position: fixed; inset: 0;
+    background-image: linear-gradient(rgba(0,212,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(0,212,255,0.03) 1px, transparent 1px);
+    background-size: 50px 50px; pointer-events: none; z-index: 0;
+  }
+  body::after {
+    content: ''; position: fixed; top: -200px; right: -200px; width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(0,212,255,0.08) 0%, transparent 70%); pointer-events: none; z-index: 0;
+  }
+  .container { max-width: 1100px; margin: 0 auto; padding: 0 2rem; position: relative; z-index: 1; }
+  nav {
+    padding: 1.5rem 0; border-bottom: 1px solid var(--border); position: sticky; top: 0;
+    background: rgba(5,10,15,0.9); backdrop-filter: blur(12px); z-index: 100;
+  }
+  nav .container { display: flex; justify-content: space-between; align-items: center; }
+  .logo { font-family: 'Space Mono', monospace; font-size: 0.85rem; color: var(--accent); letter-spacing: 0.1em; }
+  .logo span { color: var(--muted); }
+  nav ul { list-style: none; display: flex; gap: 2rem; }
+  nav a { font-family: 'Space Mono', monospace; font-size: 0.75rem; color: var(--muted); text-decoration: none; letter-spacing: 0.1em; transition: color 0.3s; }
+  nav a:hover { color: var(--accent); }
+  .hero { padding: 8rem 0 6rem; position: relative; }
+  .hero-tag { font-family: 'Space Mono', monospace; font-size: 0.75rem; color: var(--accent2); letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.75rem; }
+  .hero-tag::before { content: ''; display: inline-block; width: 30px; height: 1px; background: var(--accent2); }
+  h1 { font-size: clamp(3rem, 8vw, 6rem); font-weight: 800; line-height: 0.95; color: var(--white); margin-bottom: 1.5rem; }
+  h1 .line2 { color: var(--accent); display: block; -webkit-text-stroke: 1px var(--accent); color: transparent; }
+  .hero-desc { font-size: 1.1rem; color: var(--muted); max-width: 540px; line-height: 1.7; margin-bottom: 2.5rem; }
+  .hero-links { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .btn { font-family: 'Space Mono', monospace; font-size: 0.8rem; padding: 0.8rem 1.8rem; letter-spacing: 0.1em; text-decoration: none; transition: all 0.3s; border: 1px solid; }
+  .btn-primary { background: var(--accent); color: var(--bg); border-color: var(--accent); }
+  .btn-primary:hover { background: transparent; color: var(--accent); }
+  .btn-outline { background: transparent; color: var(--text); border-color: var(--border); }
+  .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+  .status-badge { display: inline-flex; align-items: center; gap: 0.5rem; font-family: 'Space Mono', monospace; font-size: 0.7rem; color: var(--accent2); background: rgba(0,255,136,0.08); border: 1px solid rgba(0,255,136,0.2); padding: 0.4rem 0.8rem; letter-spacing: 0.1em; margin-bottom: 2rem; }
+  .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent2); animation: pulse 2s infinite; }
+  @keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.5; transform: scale(0.8); } }
+  section { padding: 5rem 0; }
+  .section-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 3rem; }
+  .section-num { font-family: 'Space Mono', monospace; font-size: 0.7rem; color: var(--accent); letter-spacing: 0.2em; }
+  h2 { font-size: 2rem; font-weight: 800; color: var(--white); }
+  .section-header::after { content: ''; flex: 1; height: 1px; background: var(--border); margin-left: 1rem; }
+  .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5px; background: var(--border); border: 1px solid var(--border); }
+  .skill-card { background: var(--surface); padding: 2rem; transition: background 0.3s; }
+  .skill-card:hover { background: #0d1e2e; }
+  .skill-icon { font-size: 1.5rem; margin-bottom: 1rem; }
+  .skill-card h3 { font-size: 0.85rem; color: var(--accent); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 1rem; font-family: 'Space Mono', monospace; }
+  .skill-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+  .tag { font-family: 'Space Mono', monospace; font-size: 0.65rem; padding: 0.25rem 0.6rem; background: rgba(0,212,255,0.06); border: 1px solid rgba(0,212,255,0.15); color: var(--text); letter-spacing: 0.05em; }
+  .exp-timeline { position: relative; }
+  .exp-timeline::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 1px; background: linear-gradient(to bottom, var(--accent), var(--border)); }
+  .exp-item { padding-left: 2.5rem; margin-bottom: 3rem; position: relative; animation: fadeUp 0.6s ease both; }
+  .exp-item::before { content: ''; position: absolute; left: -4px; top: 6px; width: 9px; height: 9px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 12px var(--accent); }
+  .exp-date { font-family: 'Space Mono', monospace; font-size: 0.7rem; color: var(--accent2); letter-spacing: 0.1em; margin-bottom: 0.4rem; }
+  .exp-title { font-size: 1.2rem; font-weight: 700; color: var(--white); margin-bottom: 0.25rem; }
+  .exp-org { font-family: 'Space Mono', monospace; font-size: 0.75rem; color: var(--muted); margin-bottom: 1rem; letter-spacing: 0.05em; }
+  .exp-desc { font-size: 0.9rem; color: var(--text); line-height: 1.7; }
+  .exp-bullets { list-style: none; margin-top: 0.75rem; }
+  .exp-bullets li { font-size: 0.85rem; color: var(--text); line-height: 1.6; padding: 0.2rem 0; padding-left: 1rem; position: relative; }
+  .exp-bullets li::before { content: '▸'; position: absolute; left: 0; color: var(--accent); }
+  .cert-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; }
+  .cert-card { border: 1px solid var(--border); padding: 1.5rem; background: var(--surface); position: relative; overflow: hidden; transition: border-color 0.3s; }
+  .cert-card:hover { border-color: var(--accent); }
+  .cert-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--accent), var(--accent2)); transform: scaleX(0); transform-origin: left; transition: transform 0.4s; }
+  .cert-card:hover::before { transform: scaleX(1); }
+  .cert-badge { font-family: 'Space Mono', monospace; font-size: 0.65rem; color: var(--accent); background: rgba(0,212,255,0.08); border: 1px solid rgba(0,212,255,0.2); padding: 0.2rem 0.5rem; display: inline-block; margin-bottom: 0.75rem; letter-spacing: 0.1em; }
+  .cert-card h3 { font-size: 1rem; color: var(--white); margin-bottom: 0.25rem; }
+  .cert-card p { font-family: 'Space Mono', monospace; font-size: 0.7rem; color: var(--muted); letter-spacing: 0.05em; }
+  .contact-section { border-top: 1px solid var(--border); padding: 5rem 0; }
+  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+  .contact-text h2 { font-size: 2.5rem; margin-bottom: 1rem; }
+  .contact-text p { color: var(--muted); line-height: 1.7; margin-bottom: 2rem; }
+  .contact-items { display: flex; flex-direction: column; gap: 1rem; }
+  .contact-item { display: flex; align-items: center; gap: 1rem; font-family: 'Space Mono', monospace; font-size: 0.8rem; color: var(--text); }
+  .contact-item .ci-label { color: var(--muted); font-size: 0.65rem; letter-spacing: 0.15em; min-width: 60px; }
+  footer { border-top: 1px solid var(--border); padding: 1.5rem 0; text-align: center; font-family: 'Space Mono', monospace; font-size: 0.7rem; color: var(--muted); letter-spacing: 0.1em; }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+  .fade-in { animation: fadeUp 0.8s ease both; }
+  .fade-in:nth-child(1) { animation-delay: 0.1s; }
+  .fade-in:nth-child(2) { animation-delay: 0.2s; }
+  .fade-in:nth-child(3) { animation-delay: 0.3s; }
+  .fade-in:nth-child(4) { animation-delay: 0.4s; }
+  .hero::after { content: ''; position: absolute; top: 0; left: -100%; right: 0; height: 2px; background: linear-gradient(90deg, transparent, rgba(0,212,255,0.4), transparent); animation: scan 4s ease-in-out infinite; }
+  @keyframes scan { 0% { top: 0; opacity: 1; } 100% { top: 100%; opacity: 0; } }
+  .hero-about { margin-top: 2.5rem; max-width: 640px; background: rgba(0,212,255,0.04); border: 1px solid var(--border); border-left: 3px solid var(--accent); padding: 1.75rem 2rem; }
+  .hero-about-top { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.2rem; }
+  .hero-about-label { font-family: 'Space Mono', monospace; font-size: 0.68rem; letter-spacing: 0.18em; color: var(--accent); }
+  .hero-about-quote { font-size: 1.05rem; font-weight: 700; color: var(--white); line-height: 1.5; margin-bottom: 1rem; }
+  .hero-about-desc { font-size: 0.88rem; color: var(--muted); line-height: 1.8; }
+  .usp-quote-mark { font-family: 'Space Mono', monospace; font-size: 2.2rem; color: var(--accent); line-height: 0; vertical-align: -0.3em; opacity: 0.8; margin: 0 4px; }
+  .lang-toggle-wrap { display: flex; align-items: center; gap: 0.5rem; background: var(--surface); border: 1px solid var(--border); padding: 0.35rem 0.75rem; flex-shrink: 0; }
+  .lang-btn { font-family: 'Space Mono', monospace; font-size: 0.7rem; letter-spacing: 0.1em; color: var(--muted); background: transparent; border: none; cursor: pointer; padding: 0.2rem 0.4rem; transition: color 0.25s; }
+  .lang-btn.active { color: var(--accent); }
+  .lang-btn:hover { color: var(--accent); }
+  .lang-sep { color: var(--border); font-size: 0.8rem; user-select: none; }
+  .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 1rem; }
+  .project-card { background: var(--surface); border: 1px solid var(--border); padding: 2rem; position: relative; overflow: hidden; transition: border-color 0.3s, background 0.3s; }
+  .project-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--accent), var(--accent2)); transform: scaleX(0); transform-origin: left; transition: transform 0.4s; }
+  .project-card:hover { background: #0d1e2e; border-color: rgba(0,212,255,0.3); }
+  .project-card:hover::before { transform: scaleX(1); }
+  .project-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.2rem; }
+  .project-icon { font-size: 2.2rem; }
+  .project-meta { display: flex; gap: 0.5rem; flex-wrap: wrap; justify-content: flex-end; }
+  .project-badge { font-family: 'Space Mono', monospace; font-size: 0.62rem; letter-spacing: 0.08em; padding: 0.2rem 0.55rem; background: rgba(0,212,255,0.08); border: 1px solid rgba(0,212,255,0.2); color: var(--accent); }
+  .badge-green { background: rgba(0,255,136,0.08); border-color: rgba(0,255,136,0.2); color: var(--accent2); }
+  .project-title { font-size: 1.15rem; font-weight: 800; color: var(--white); margin-bottom: 0.75rem; }
+  .project-desc { font-size: 0.88rem; color: var(--muted); line-height: 1.8; margin-bottom: 1.2rem; }
+  .project-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1.5rem; }
+  .project-footer { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.75rem; padding-top: 1.2rem; border-top: 1px solid var(--border); }
+  .project-download { font-family: 'Space Mono', monospace; font-size: 0.75rem; letter-spacing: 0.08em; color: var(--bg); background: var(--accent); padding: 0.5rem 1.2rem; text-decoration: none; border: 1px solid var(--accent); transition: all 0.3s; }
+  .project-download:hover { background: transparent; color: var(--accent); }
+  .project-tool { font-family: 'Space Mono', monospace; font-size: 0.65rem; color: var(--muted); letter-spacing: 0.05em; }
+  .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5px; background: var(--border); border: 1px solid var(--border); }
+  .service-card { background: var(--surface); padding: 2rem; position: relative; overflow: hidden; transition: background 0.3s; }
+  .service-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--accent), var(--accent2)); transform: scaleX(0); transform-origin: left; transition: transform 0.4s; }
+  .service-card:hover { background: #0d1e2e; }
+  .service-card:hover::before { transform: scaleX(1); }
+  .service-icon { font-size: 2rem; margin-bottom: 1rem; display: block; }
+  .service-title { font-family: 'Space Mono', monospace; font-size: 0.8rem; font-weight: 700; color: var(--accent); letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 0.75rem; }
+  .service-desc { font-size: 0.88rem; color: var(--muted); line-height: 1.8; margin-bottom: 1rem; }
+  .service-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+  .social-links { display: flex; gap: 0.75rem; flex-wrap: wrap; margin-top: 1.5rem; }
+  .social-link { display: inline-flex; align-items: center; gap: 0.55rem; font-family: 'Space Mono', monospace; font-size: 0.72rem; letter-spacing: 0.08em; padding: 0.55rem 1rem; text-decoration: none; border: 1px solid var(--border); background: var(--surface); color: var(--text); transition: all 0.25s ease; }
+  .social-link:hover { transform: translateY(-2px); }
+  .social-link.linkedin { border-color: rgba(10,102,194,0.4); }
+  .social-link.linkedin:hover { border-color: #0a66c2; color: #0a66c2; background: rgba(10,102,194,0.08); }
+  .social-link.whatsapp { border-color: rgba(37,211,102,0.4); }
+  .social-link.whatsapp:hover { border-color: #25d366; color: #25d366; background: rgba(37,211,102,0.08); }
+  .social-link.email { border-color: rgba(0,212,255,0.3); }
+  .social-link.email:hover { border-color: var(--accent); color: var(--accent); background: rgba(0,212,255,0.06); }
+  .social-link.github { border-color: rgba(255,255,255,0.15); }
+  .social-link.github:hover { border-color: #e8f4f8; color: #e8f4f8; background: rgba(232,244,248,0.06); }
+  .social-link svg { width: 15px; height: 15px; flex-shrink: 0; fill: currentColor; }
+  .contact-item a { display: inline-flex; align-items: center; gap: 0.4rem; color: inherit; text-decoration: none; transition: color 0.2s; }
+  .contact-item a:hover { color: var(--accent); }
+  .contact-item a svg { width: 13px; height: 13px; fill: currentColor; flex-shrink: 0; }
+  .contact-item a.whatsapp-link:hover { color: #25d366; }
+  .contact-item a.linkedin-link:hover { color: #0a66c2; }
+
+  @media (max-width: 768px) {
+    .contact-grid { grid-template-columns: 1fr; gap: 2rem; }
+    nav ul { display: none; }
+    h1 { font-size: 3rem; }
+  }
+
+  /* ═══════════════════════════════════════════
+     PASSWORD MODAL
+  ═══════════════════════════════════════════ */
+  #pwOverlay {
+    position: fixed; inset: 0; z-index: 10001;
+    background: rgba(5,10,15,0.96);
+    backdrop-filter: blur(8px);
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.25s;
+  }
+  #pwOverlay.show { opacity: 1; pointer-events: all; }
+  #pwBox {
+    background: #06101a; border: 1px solid var(--border);
+    border-top: 3px solid var(--accent);
+    padding: 2.5rem 2.5rem 2rem; width: 340px; max-width: 90vw;
+    position: relative; animation: fadeUp 0.3s ease both;
+  }
+  #pwBox .pw-icon { font-size: 2rem; margin-bottom: 1rem; display: block; text-align: center; }
+  #pwBox h3 { font-family: 'Space Mono', monospace; font-size: 0.82rem; color: var(--accent); letter-spacing: 0.18em; text-align: center; margin-bottom: 0.4rem; }
+  #pwBox p  { font-family: 'Space Mono', monospace; font-size: 0.65rem; color: var(--muted); text-align: center; margin-bottom: 1.8rem; letter-spacing: 0.08em; }
+  #pwInput {
+    width: 100%; background: var(--surface); border: 1px solid var(--border);
+    color: var(--text); font-family: 'Space Mono', monospace; font-size: 0.9rem;
+    padding: 0.75rem 1rem; outline: none; letter-spacing: 0.2em; text-align: center;
+    margin-bottom: 1rem; transition: border-color 0.2s;
+  }
+  #pwInput:focus { border-color: var(--accent); }
+  #pwInput.error { border-color: #e63946; animation: shake 0.35s ease; }
+  @keyframes shake {
+    0%,100%{transform:translateX(0)} 20%{transform:translateX(-8px)}
+    40%{transform:translateX(8px)} 60%{transform:translateX(-5px)} 80%{transform:translateX(5px)}
+  }
+  #pwSubmit {
+    width: 100%; background: var(--accent); color: var(--bg); border: none;
+    font-family: 'Space Mono', monospace; font-size: 0.78rem; font-weight: 700;
+    letter-spacing: 0.15em; padding: 0.85rem; cursor: pointer; transition: background 0.2s;
+  }
+  #pwSubmit:hover { background: var(--accent2); }
+  #pwError { font-family: 'Space Mono', monospace; font-size: 0.65rem; color: #e63946; text-align: center; margin-top: 0.75rem; letter-spacing: 0.1em; min-height: 1rem; }
+  #pwClose { position: absolute; top: 0.75rem; right: 0.75rem; background: none; border: 1px solid var(--border); color: var(--muted); width: 26px; height: 26px; cursor: pointer; font-size: 0.8rem; display: flex; align-items: center; justify-content: center; transition: all 0.2s; }
+  #pwClose:hover { border-color: #e63946; color: #e63946; }
+  #pwAttempts { font-family: 'Space Mono', monospace; font-size: 0.58rem; color: var(--muted); text-align: center; margin-top: 0.5rem; letter-spacing: 0.08em; }
+  #pwLockMsg { font-family: 'Space Mono', monospace; font-size: 0.7rem; color: #e63946; text-align: center; padding: 1rem 0; letter-spacing: 0.08em; display: none; }
+  .pw-change-row { display: flex; gap: 0.5rem; align-items: flex-end; }
+  .pw-change-row .ep-input { flex: 1; margin: 0; }
+  .pw-change-btn { background: var(--accent); color: var(--bg); border: none; font-family: 'Space Mono', monospace; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em; padding: 0.6rem 0.9rem; cursor: pointer; white-space: nowrap; transition: background 0.2s; flex-shrink: 0; }
+  .pw-change-btn:hover { background: var(--accent2); }
+
+  /* ═══════════════════════════════════════════
+     EDITOR SYSTEM
+  ═══════════════════════════════════════════ */
+
+  /* Floating Edit Button */
+  #editToggleBtn {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    z-index: 9999;
+    background: var(--accent);
+    color: var(--bg);
+    border: none;
+    padding: 0.8rem 1.4rem;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    box-shadow: 0 0 20px rgba(0,212,255,0.35);
+    transition: all 0.25s;
+  }
+  #editToggleBtn:hover { background: var(--accent2); box-shadow: 0 0 25px rgba(0,255,136,0.4); }
+  #editToggleBtn.active { background: var(--accent2); color: var(--bg); }
+
+  /* Panel Overlay */
+  #editPanel {
+    position: fixed;
+    top: 0; right: -480px;
+    width: 460px;
+    height: 100vh;
+    background: #06101a;
+    border-left: 1px solid var(--border);
+    z-index: 9998;
+    display: flex;
+    flex-direction: column;
+    transition: right 0.35s cubic-bezier(0.4,0,0.2,1);
+    box-shadow: -10px 0 40px rgba(0,0,0,0.6);
+  }
+  #editPanel.open { right: 0; }
+
+  .ep-header {
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-shrink: 0;
+    background: #080e1a;
+  }
+  .ep-title {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.8rem;
+    color: var(--accent);
+    letter-spacing: 0.15em;
+    font-weight: 700;
+  }
+  .ep-close {
+    background: none; border: 1px solid var(--border); color: var(--muted);
+    width: 28px; height: 28px; cursor: pointer; font-size: 1rem;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.2s;
+  }
+  .ep-close:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* Tabs */
+  .ep-tabs {
+    display: flex;
+    border-bottom: 1px solid var(--border);
+    flex-shrink: 0;
+    background: #06101a;
+    overflow-x: auto;
+  }
+  .ep-tab {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    background: none;
+    border: none;
+    padding: 0.75rem 1rem;
+    cursor: pointer;
+    white-space: nowrap;
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s;
+  }
+  .ep-tab:hover { color: var(--text); }
+  .ep-tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+  /* Scrollable body */
+  .ep-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 1.5rem;
+  }
+  .ep-body::-webkit-scrollbar { width: 4px; }
+  .ep-body::-webkit-scrollbar-track { background: transparent; }
+  .ep-body::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+  /* Tab panes */
+  .ep-pane { display: none; }
+  .ep-pane.active { display: block; }
+
+  /* Field groups */
+  .ep-group {
+    margin-bottom: 1.4rem;
+  }
+  .ep-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.62rem;
+    color: var(--accent);
+    letter-spacing: 0.15em;
+    margin-bottom: 0.45rem;
+    display: block;
+  }
+  .ep-input, .ep-textarea {
+    width: 100%;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-family: 'Space Mono', monospace;
+    font-size: 0.78rem;
+    padding: 0.6rem 0.8rem;
+    outline: none;
+    transition: border-color 0.2s;
+    line-height: 1.5;
+  }
+  .ep-input:focus, .ep-textarea:focus { border-color: var(--accent); }
+  .ep-textarea { resize: vertical; min-height: 70px; }
+  .ep-hint { font-family: 'Space Mono', monospace; font-size: 0.58rem; color: var(--muted); margin-top: 0.3rem; }
+
+  /* Section divider inside panel */
+  .ep-section-title {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--accent2);
+    letter-spacing: 0.18em;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 1rem;
+    margin-top: 1.5rem;
+  }
+  .ep-section-title:first-child { margin-top: 0; }
+
+  /* Save / Apply buttons */
+  .ep-footer {
+    padding: 1rem 1.5rem;
+    border-top: 1px solid var(--border);
+    display: flex;
+    gap: 0.75rem;
+    flex-shrink: 0;
+    background: #06101a;
+  }
+  .ep-save {
+    flex: 1;
+    background: var(--accent);
+    color: var(--bg);
+    border: none;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    padding: 0.75rem;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .ep-save:hover { background: var(--accent2); }
+  .ep-reset {
+    background: transparent;
+    color: var(--muted);
+    border: 1px solid var(--border);
+    font-family: 'Space Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    padding: 0.75rem 1rem;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .ep-reset:hover { border-color: #e63946; color: #e63946; }
+
+  /* Toast notification */
+  #ep-toast {
+    position: fixed;
+    bottom: 6rem;
+    right: 2rem;
+    background: var(--accent2);
+    color: var(--bg);
+    font-family: 'Space Mono', monospace;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    padding: 0.65rem 1.2rem;
+    z-index: 10000;
+    transform: translateY(20px);
+    opacity: 0;
+    transition: all 0.3s;
+    pointer-events: none;
+  }
+  #ep-toast.show { transform: translateY(0); opacity: 1; }
+</style>
+</head>
+<body>
+
+<!-- ── PASSWORD MODAL ── -->
+<div id="pwOverlay">
+  <div id="pwBox">
+    <button id="pwClose" onclick="closePwModal()">✕</button>
+    <span class="pw-icon">🔐</span>
+    <h3>ADMIN ACCESS</h3>
+    <p>Enter the admin password to unlock the editor</p>
+    <input id="pwInput" type="password" placeholder="••••••••"
+           onkeydown="if(event.key==='Enter') submitPw()"
+           autocomplete="current-password" spellcheck="false">
+    <button id="pwSubmit" onclick="submitPw()">UNLOCK EDITOR</button>
+    <div id="pwError"></div>
+    <div id="pwAttempts"></div>
+    <div id="pwLockMsg">🔒 Too many attempts. Try again in <span id="pwCountdown">60</span>s</div>
+  </div>
+</div>
+
+<!-- ── FLOATING EDIT BUTTON ── -->
+<button id="editToggleBtn" onclick="togglePanel()">
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a1 1 0 000-1.41l-2.34-2.34a1 1 0 00-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
+  EDIT MODE
+</button>
+
+<!-- ── EDIT PANEL ── -->
+<div id="editPanel">
+  <div class="ep-header">
+    <span class="ep-title">⚙ PORTFOLIO EDITOR</span>
+    <button class="ep-close" onclick="togglePanel()">✕</button>
+  </div>
+
+  <div class="ep-tabs">
+    <button class="ep-tab active" onclick="switchTab('tab-hero')">HERO</button>
+    <button class="ep-tab" onclick="switchTab('tab-contact')">CONTACT</button>
+    <button class="ep-tab" onclick="switchTab('tab-social')">SOCIAL</button>
+    <button class="ep-tab" onclick="switchTab('tab-exp')">EXPERIENCE</button>
+    <button class="ep-tab" onclick="switchTab('tab-edu')">EDU & CERTS</button>
+    <button class="ep-tab" onclick="switchTab('tab-proj')">PROJECTS</button>
+    <button class="ep-tab" onclick="switchTab('tab-security')">🔑 SECURITY</button>
+  </div>
+
+  <div class="ep-body">
+
+    <!-- TAB: HERO -->
+    <div class="ep-pane active" id="tab-hero">
+      <div class="ep-section-title">IDENTITY</div>
+      <div class="ep-group">
+        <label class="ep-label">FIRST NAME</label>
+        <input class="ep-input" id="f-firstName" type="text" placeholder="ZEYAD">
+      </div>
+      <div class="ep-group">
+        <label class="ep-label">LAST NAME</label>
+        <input class="ep-input" id="f-lastName" type="text" placeholder="ELSAYED">
+      </div>
+      <div class="ep-group">
+        <label class="ep-label">JOB TITLE (HERO TAG)</label>
+        <input class="ep-input" id="f-heroTag" type="text" placeholder="Network & Security Engineer">
+      </div>
+      <div class="ep-group">
+        <label class="ep-label">HERO DESCRIPTION</label>
+        <textarea class="ep-textarea" id="f-heroDesc" rows="4"></textarea>
+      </div>
+      <div class="ep-section-title">ABOUT ME (ENGLISH)</div>
+      <div class="ep-group">
+        <label class="ep-label">QUOTE (EN)</label>
+        <textarea class="ep-textarea" id="f-quoteEn" rows="2"></textarea>
+      </div>
+      <div class="ep-group">
+        <label class="ep-label">DESCRIPTION (EN)</label>
+        <textarea class="ep-textarea" id="f-descEn" rows="4"></textarea>
+      </div>
+      <div class="ep-section-title">ABOUT ME (عربي)</div>
+      <div class="ep-group">
+        <label class="ep-label">الاقتباس</label>
+        <textarea class="ep-textarea" id="f-quoteAr" rows="2" dir="rtl"></textarea>
+      </div>
+      <div class="ep-group">
+        <label class="ep-label">الوصف</label>
+        <textarea class="ep-textarea" id="f-descAr" rows="4" dir="rtl"></textarea>
+      </div>
+    </div>
+
+    <!-- TAB: CONTACT -->
+    <div class="ep-pane" id="tab-contact">
+      <div class="ep-section-title">CONTACT DETAILS</div>
+      <div class="ep-group">
+        <label class="ep-label">EMAIL ADDRESS</label>
+        <input class="ep-input" id="f-email" type="email" placeholder="your@email.com">
+        <span class="ep-hint">Used for mailto: links throughout the site</span>
+      </div>
+      <div class="ep-group">
+        <label class="ep-label">WHATSAPP NUMBER (with country code)</label>
+        <input class="ep-input" id="f-phone" type="text" placeholder="201001234298">
+        <span class="ep-hint">e.g. 201001234298 — no + sign, no spaces</span>
+      </div>
+      <div class="ep-group">
+        <label class="ep-label">LOCATION</label>
+        <input class="ep-input" id="f-location" type="text" placeholder="Egypt">
+      </div>
+      <div class="ep-group">
+        <label class="ep-label">STATUS</label>
+        <input class="ep-input" id="f-status" type="text" placeholder="Available · Open to Work">
+      </div>
+      <div class="ep-group">
+        <label class="ep-label">LANGUAGES</label>
+        <input class="ep-input" id="f-langs" type="text" placeholder="Arabic (Native) · English (Very Good)">
+      </div>
+      <div class="ep-section-title">CONTACT SECTION TEXT</div>
+      <div class="ep-group">
+        <label class="ep-label">HEADING</label>
+        <input class="ep-input" id="f-contactHeading" type="text" placeholder="Open to Opportunities">
+      </div>
+      <div class="ep-group">
+        <label class="ep-label">DESCRIPTION</label>
+        <textarea class="ep-textarea" id="f-contactDesc" rows="3"></textarea>
+      </div>
+    </div>
+
+    <!-- TAB: SOCIAL LINKS -->
+    <div class="ep-pane" id="tab-social">
+      <div class="ep-section-title">SOCIAL PROFILES</div>
+      <div class="ep-group">
+        <label class="ep-label">LINKEDIN URL</label>
+        <input class="ep-input" id="f-linkedin" type="text" placeholder="https://www.linkedin.com/in/your-profile">
+        <span class="ep-hint">Full URL — opens LinkedIn app on mobile</span>
+      </div>
+      <div class="ep-group">
+        <label class="ep-label">GITHUB URL</label>
+        <input class="ep-input" id="f-github" type="text" placeholder="https://github.com/your-username">
+      </div>
+      <div class="ep-group">
+        <label class="ep-label">DISPLAYED LINKEDIN TEXT</label>
+        <input class="ep-input" id="f-linkedinDisplay" type="text" placeholder="linkedin.com/in/your-profile">
+        <span class="ep-hint">What visitors see as the clickable text</span>
+      </div>
+    </div>
+
+    <!-- TAB: EXPERIENCE -->
+    <div class="ep-pane" id="tab-exp">
+      <div class="ep-section-title">JOB 1 (CURRENT)</div>
+      <div class="ep-group">
+        <label class="ep-label">DATE RANGE</label>
+        <input class="ep-input" id="f-exp1date" type="text" placeholder="FEB 2025 — PRESENT">
+      </div>
+      <div class="ep-group">
+        <label class="ep-label">JOB TITLE</label>
+        <input class="ep-input" id="f-exp1title" type="text">
+      </div>
+      <div class="ep-group">
+        <label class="ep-label">ORGANIZATION</label>
+        <input class="ep-input" id="f-exp1org" type="text">
+      </div>
+      <div class="ep-group">
+        <label class="ep-label">DESCRIPTION</label>
+        <textarea class="ep-textarea" id="f-exp1desc" rows="3"></textarea>
+      </div>
+      <div class="ep-group">
+        <label class="ep-label">BULLET POINTS (one per line)</label>
+        <textarea class="ep-textarea" id="f-exp1bullets" rows="6"></textarea>
+      </div>
+      <div class="ep-section-title">JOB 2</div>
+      <div class="ep-group">
+        <label class="ep-label">DATE RANGE</label>
+        <input class="ep-input" id="f-exp2date" type="text" placeholder="MAY 2024 — JUL 2024">
+      </div>
+      <div class="ep-group">
+        <label class="ep-label">JOB TITLE</label>
+        <input class="ep-input" id="f-exp2title" type="text">
+      </div>
+      <div class="ep-group">
+        <label class="ep-label">ORGANIZATION</label>
+        <input class="ep-input" id="f-exp2org" type="text">
+      </div>
+      <div class="ep-group">
+        <label class="ep-label">DESCRIPTION</label>
+        <textarea class="ep-textarea" id="f-exp2desc" rows="3"></textarea>
+      </div>
+      <div class="ep-group">
+        <label class="ep-label">BULLET POINTS (one per line)</label>
+        <textarea class="ep-textarea" id="f-exp2bullets" rows="5"></textarea>
+      </div>
+    </div>
+
+    <!-- TAB: EDU & CERTS -->
+    <div class="ep-pane" id="tab-edu">
+      <div class="ep-section-title">EDUCATION</div>
+      <div class="ep-group">
+        <label class="ep-label">DEGREE</label>
+        <input class="ep-input" id="f-degree" type="text">
+      </div>
+      <div class="ep-group">
+        <label class="ep-label">UNIVERSITY</label>
+        <input class="ep-input" id="f-university" type="text">
+      </div>
+      <div class="ep-group">
+        <label class="ep-label">GRAD YEAR</label>
+        <input class="ep-input" id="f-gradYear" type="text" placeholder="GRADUATED 2026">
+      </div>
+      <div class="ep-group">
+        <label class="ep-label">DESCRIPTION / COURSEWORK</label>
+        <textarea class="ep-textarea" id="f-eduDesc" rows="3"></textarea>
+      </div>
+      <div class="ep-section-title">CERT 1</div>
+      <div class="ep-group">
+        <label class="ep-label">BADGE LABEL</label>
+        <input class="ep-input" id="f-cert1badge" type="text" placeholder="CISCO">
+      </div>
+      <div class="ep-group">
+        <label class="ep-label">CERT NAME</label>
+        <input class="ep-input" id="f-cert1name" type="text" placeholder="CCNA">
+      </div>
+      <div class="ep-group">
+        <label class="ep-label">FULL TITLE</label>
+        <input class="ep-input" id="f-cert1full" type="text">
+      </div>
+      <div class="ep-group">
+        <label class="ep-label">DATE / ISSUER</label>
+        <input class="ep-input" id="f-cert1date" type="text">
+      </div>
+      <div class="ep-section-title">CERT 2</div>
+      <div class="ep-group">
+        <label class="ep-label">BADGE LABEL</label>
+        <input class="ep-input" id="f-cert2badge" type="text" placeholder="MICROSOFT">
+      </div>
+      <div class="ep-group">
+        <label class="ep-label">CERT NAME</label>
+        <input class="ep-input" id="f-cert2name" type="text">
+      </div>
+      <div class="ep-group">
+        <label class="ep-label">FULL TITLE</label>
+        <input class="ep-input" id="f-cert2full" type="text">
+      </div>
+      <div class="ep-group">
+        <label class="ep-label">DATE / ISSUER</label>
+        <input class="ep-input" id="f-cert2date" type="text">
+      </div>
+      <div class="ep-section-title">CERT 3</div>
+      <div class="ep-group">
+        <label class="ep-label">BADGE LABEL</label>
+        <input class="ep-input" id="f-cert3badge" type="text" placeholder="SECURITY">
+      </div>
+      <div class="ep-group">
+        <label class="ep-label">CERT NAME</label>
+        <input class="ep-input" id="f-cert3name" type="text">
+      </div>
+      <div class="ep-group">
+        <label class="ep-label">FULL TITLE</label>
+        <input class="ep-input" id="f-cert3full" type="text">
+      </div>
+      <div class="ep-group">
+        <label class="ep-label">DATE / ISSUER</label>
+        <input class="ep-input" id="f-cert3date" type="text">
+      </div>
+    </div>
+
+    <!-- TAB: PROJECTS -->
+    <div class="ep-pane" id="tab-proj">
+      <div class="ep-section-title">PROJECT</div>
+      <div class="ep-group">
+        <label class="ep-label">ICON (emoji)</label>
+        <input class="ep-input" id="f-projIcon" type="text" placeholder="🏥">
+      </div>
+      <div class="ep-group">
+        <label class="ep-label">TITLE</label>
+        <input class="ep-input" id="f-projTitle" type="text">
+      </div>
+      <div class="ep-group">
+        <label class="ep-label">DESCRIPTION</label>
+        <textarea class="ep-textarea" id="f-projDesc" rows="4"></textarea>
+      </div>
+      <div class="ep-group">
+        <label class="ep-label">BADGE 1 (e.g. tool name)</label>
+        <input class="ep-input" id="f-projBadge1" type="text" placeholder="Cisco Packet Tracer">
+      </div>
+      <div class="ep-group">
+        <label class="ep-label">BADGE 2 (e.g. category)</label>
+        <input class="ep-input" id="f-projBadge2" type="text" placeholder="Networking">
+      </div>
+      <div class="ep-group">
+        <label class="ep-label">TAGS (comma separated)</label>
+        <input class="ep-input" id="f-projTags" type="text" placeholder="VLANs, DHCP, ACLs">
+      </div>
+      <div class="ep-group">
+        <label class="ep-label">DOWNLOAD FILE PATH</label>
+        <input class="ep-input" id="f-projFile" type="text" placeholder="Hospital_Management_Network.pkt">
+      </div>
+      <div class="ep-group">
+        <label class="ep-label">FILE TYPE NOTE</label>
+        <input class="ep-input" id="f-projFileTool" type="text" placeholder="Opens in Cisco Packet Tracer">
+      </div>
+    </div>
+
+    <!-- TAB: SECURITY -->
+    <div class="ep-pane" id="tab-security">
+      <div class="ep-section-title">CHANGE ADMIN PASSWORD</div>
+      <div class="ep-group">
+        <label class="ep-label">CURRENT PASSWORD</label>
+        <input class="ep-input" id="f-pwCurrent" type="password" placeholder="Enter current password" autocomplete="current-password">
+      </div>
+      <div class="ep-group">
+        <label class="ep-label">NEW PASSWORD</label>
+        <input class="ep-input" id="f-pwNew" type="password" placeholder="Enter new password" autocomplete="new-password">
+        <span class="ep-hint">Minimum 4 characters</span>
+      </div>
+      <div class="ep-group">
+        <label class="ep-label">CONFIRM NEW PASSWORD</label>
+        <input class="ep-input" id="f-pwConfirm" type="password" placeholder="Repeat new password" autocomplete="new-password">
+      </div>
+      <div class="ep-group" style="margin-top:1.2rem;">
+        <button class="pw-change-btn" style="width:100%;padding:0.8rem;" onclick="changePassword()">
+          🔑 UPDATE PASSWORD
+        </button>
+      </div>
+      <div id="pw-change-msg" style="font-family:'Space Mono',monospace;font-size:0.65rem;text-align:center;margin-top:0.75rem;letter-spacing:0.1em;min-height:1rem;"></div>
+
+      <div class="ep-section-title" style="margin-top:2rem;">LOGOUT</div>
+      <div class="ep-group">
+        <button class="ep-reset" style="width:100%;padding:0.75rem;" onclick="logoutEditor()">
+          🚪 LOCK &amp; EXIT EDIT MODE
+        </button>
+        <span class="ep-hint" style="margin-top:0.4rem;display:block;">Closes the editor and locks it until the password is entered again</span>
+      </div>
+
+      <div class="ep-section-title" style="margin-top:2rem;">SESSION INFO</div>
+      <div class="ep-group">
+        <div style="background:var(--surface);border:1px solid var(--border);padding:0.8rem 1rem;">
+          <div style="font-family:'Space Mono',monospace;font-size:0.65rem;color:var(--muted);margin-bottom:0.4rem;letter-spacing:0.1em;">STATUS</div>
+          <div style="font-family:'Space Mono',monospace;font-size:0.75rem;color:var(--accent2);letter-spacing:0.08em;">✓ ADMIN AUTHENTICATED</div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /ep-body -->
+
+  <div class="ep-footer">
+    <button class="ep-save" onclick="applyChanges()">
+      ✦ SAVE &amp; APPLY
+    </button>
+    <button class="ep-reset" onclick="resetAll()" title="Reset all to defaults">RESET</button>
+  </div>
+</div>
+
+<!-- Toast -->
+<div id="ep-toast">✓ CHANGES SAVED</div>
+
+<nav>
+  <div class="container">
+    <div class="logo">ZE<span>//</span>PORTFOLIO</div>
+    <ul>
+      <li><a href="#about">ABOUT</a></li>
+      <li><a href="#skills">SKILLS</a></li>
+      <li><a href="#experience">EXPERIENCE</a></li>
+      <li><a href="#certs">CERTS</a></li>
+      <li><a href="#projects">PROJECTS</a></li>
+      <li><a href="#services">SERVICES</a></li>
+      <li><a href="#contact">CONTACT</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main>
+  <div class="container">
+
+    <!-- HERO -->
+    <section class="hero" id="about">
+      <div class="status-badge fade-in">
+        <span class="dot"></span>
+        AVAILABLE FOR WORK · ENTRY-LEVEL
+      </div>
+      <div class="hero-tag fade-in" id="d-heroTag">Network &amp; Security Engineer</div>
+      <h1 class="fade-in">
+        <span id="d-firstName">ZEYAD</span><br>
+        <span class="line2" id="d-lastName">ELSAYED</span>
+      </h1>
+      <p class="hero-desc fade-in" id="d-heroDesc">
+        Computer Information graduate from Tanta University with CCNA, MCSA, and Network Security certifications. Passionate about enterprise networking, SOC operations, and building secure, resilient IT environments.
+      </p>
+      <div class="hero-about fade-in" id="usp">
+        <div class="hero-about-top">
+          <span class="hero-about-label lang-en">🎯 ABOUT ME</span>
+          <span class="hero-about-label lang-ar" style="display:none; font-family:'Cairo',sans-serif;">🎯 نبذة عني</span>
+          <div class="lang-toggle-wrap" style="margin-right:auto;">
+            <button class="lang-btn active" id="btnEn" onclick="setLang('en')">EN</button>
+            <span class="lang-sep">|</span>
+            <button class="lang-btn" id="btnAr" onclick="setLang('ar')">عربي</button>
+          </div>
+        </div>
+        <p class="hero-about-quote lang-en" id="d-quoteEn">
+          <span class="usp-quote-mark">"</span><span id="d-quoteEnText">I Am the First Line of Defense — I Detect Threats Before They Cost You</span><span class="usp-quote-mark">"</span>
+        </p>
+        <p class="hero-about-desc lang-en" id="d-descEn">
+          I don't just monitor events — I transform chaotic data into actionable security intelligence. I combine analytical speed with technical depth to identify real threats from thousands of alerts, while maintaining operational continuity and protecting organizational assets around the clock.
+        </p>
+        <p class="hero-about-quote lang-ar" style="display:none; direction:rtl; font-family:'Cairo',sans-serif; text-align:right;" id="d-quoteAr">
+          <span class="usp-quote-mark">"</span><span id="d-quoteArText">أنا خط الدفاع الأول — أكتشف التهديدات قبل أن تُكلّف</span><span class="usp-quote-mark">"</span>
+        </p>
+        <p class="hero-about-desc lang-ar" style="display:none; direction:rtl; font-family:'Cairo',sans-serif; text-align:right;" id="d-descAr">
+          لا أكتفي بمراقبة الأحداث — أحوّل البيانات الفوضوية إلى استخبارات أمنية قابلة للتنفيذ. أجمع بين السرعة التحليلية والعمق التقني لتحديد التهديدات الحقيقية من آلاف التنبيهات، مع الحفاظ على استمرارية العمليات وحماية أصول المؤسسة على مدار الساعة.
+        </p>
+      </div>
+      <div class="hero-links fade-in">
+        <a href="#contact" class="btn btn-primary">GET IN TOUCH</a>
+        <a href="#experience" class="btn btn-outline">VIEW EXPERIENCE</a>
+      </div>
+      <div class="social-links fade-in">
+        <a id="d-linkLinkedinHero" href="https://www.linkedin.com/in/zeyad-elsayed" target="_blank" rel="noopener" class="social-link linkedin">
+          <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          LINKEDIN
+        </a>
+        <a id="d-linkWaHero" href="https://wa.me/201001234298" target="_blank" rel="noopener" class="social-link whatsapp">
+          <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          WHATSAPP
+        </a>
+        <a id="d-linkEmailHero" href="mailto:zyadalsyd192@gmail.com" class="social-link email">
+          <svg viewBox="0 0 24 24"><path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.909v9.273H1.636A1.636 1.636 0 010 19.366V5.457c0-.904.732-1.636 1.636-1.636h.749L12 11.73l9.615-7.909h.749A1.636 1.636 0 0124 5.457z"/></svg>
+          EMAIL
+        </a>
+        <a id="d-linkGithubHero" href="https://github.com/zeyad-elsayed" target="_blank" rel="noopener" class="social-link github">
+          <svg viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+          GITHUB
+        </a>
+      </div>
+    </section>
+
+    <!-- EDUCATION -->
+    <section>
+      <div class="section-header"><span class="section-num">01</span><h2>Education</h2></div>
+      <div class="exp-item">
+        <div class="exp-date" id="d-gradYear">GRADUATED 2026</div>
+        <div class="exp-title" id="d-degree">Bachelor of Computers and Information</div>
+        <div class="exp-org" id="d-university">Tanta University · Faculty of Computers and Information</div>
+        <p class="exp-desc" id="d-eduDesc">Relevant coursework: Computer Networks, Operating Systems, Database Management, Information Security.</p>
+      </div>
+    </section>
+
+    <!-- CERTIFICATIONS -->
+    <section id="certs">
+      <div class="section-header"><span class="section-num">02</span><h2>Certifications</h2></div>
+      <div class="cert-grid">
+        <div class="cert-card">
+          <span class="cert-badge" id="d-cert1badge">CISCO</span>
+          <h3 id="d-cert1name">CCNA</h3>
+          <p id="d-cert1full">Cisco Certified Network Associate</p>
+          <p style="margin-top:0.4rem; color: var(--accent2);" id="d-cert1date">AUC · Aug 2023 – Jan 2024</p>
+        </div>
+        <div class="cert-card">
+          <span class="cert-badge" id="d-cert2badge">MICROSOFT</span>
+          <h3 id="d-cert2name">MCSA</h3>
+          <p id="d-cert2full">Microsoft Certified Solutions Associate</p>
+          <p style="margin-top:0.4rem; color: var(--accent2);" id="d-cert2date">Feb 2024 – Apr 2024</p>
+        </div>
+        <div class="cert-card">
+          <span class="cert-badge" id="d-cert3badge">SECURITY</span>
+          <h3 id="d-cert3name">Network Security &amp; Cyber Operations</h3>
+          <p id="d-cert3full">Specialized cybersecurity certification</p>
+          <p style="margin-top:0.4rem; color: var(--accent2);" id="d-cert3date">May 2024</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- EXPERIENCE -->
+    <section id="experience">
+      <div class="section-header"><span class="section-num">03</span><h2>Experience</h2></div>
+      <div class="exp-timeline">
+        <div class="exp-item">
+          <div class="exp-date" id="d-exp1date">FEB 2025 — PRESENT</div>
+          <div class="exp-title" id="d-exp1title">Information Security Analyst Trainee</div>
+          <div class="exp-org" id="d-exp1org">Digital Egypt Pioneers Initiative (DEPI) · 6-Month Program</div>
+          <p class="exp-desc" id="d-exp1desc">Comprehensive training in Infrastructure &amp; Security focusing on Information Security Analysis.</p>
+          <ul class="exp-bullets" id="d-exp1bullets">
+            <li>SOC Essential Concepts &amp; Security Operations Management</li>
+            <li>Vulnerability Management &amp; Cyber Threat Analysis (IoCs, Attack Methodology)</li>
+            <li>Incident Detection with SIEM tools and log analysis</li>
+            <li>Incident Response &amp; Management, Reporting &amp; Communication</li>
+            <li>Capstone Project with Prompt Engineering focus</li>
+          </ul>
+        </div>
+        <div class="exp-item">
+          <div class="exp-date" id="d-exp2date">MAY 2024 — JUL 2024</div>
+          <div class="exp-title" id="d-exp2title">Cyber Operations Intern</div>
+          <div class="exp-org" id="d-exp2org">National Telecommunication Institute (NTI)</div>
+          <p class="exp-desc" id="d-exp2desc">Hands-on experience in cybersecurity operations within a real SOC environment.</p>
+          <ul class="exp-bullets" id="d-exp2bullets">
+            <li>Monitored network traffic and security alerts using SIEM tools</li>
+            <li>Analyzed security logs and investigated suspicious activities</li>
+            <li>Assisted implementation of firewall rules, IDS/IPS, and access controls</li>
+            <li>Participated in vulnerability assessments and threat detection exercises</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="skills">
+      <div class="section-header"><span class="section-num">04</span><h2>Technical Skills</h2></div>
+      <div class="skills-grid">
+        <div class="skill-card fade-in"><div class="skill-icon">🌐</div><h3>Networking</h3><div class="skill-tags"><span class="tag">TCP/IP</span><span class="tag">OSI Model</span><span class="tag">Routing &amp; Switching</span><span class="tag">VLANs</span><span class="tag">STP</span><span class="tag">HSRP</span><span class="tag">OSPF</span><span class="tag">EIGRP</span><span class="tag">RIP</span><span class="tag">DHCP</span><span class="tag">DNS</span><span class="tag">NAT</span><span class="tag">VPN</span><span class="tag">LAN/WAN</span></div></div>
+        <div class="skill-card fade-in"><div class="skill-icon">🛡️</div><h3>Network Security</h3><div class="skill-tags"><span class="tag">Firewalls</span><span class="tag">IDS/IPS</span><span class="tag">ACLs</span><span class="tag">Port Security</span><span class="tag">SOC Concepts</span><span class="tag">Threat Detection</span><span class="tag">SIEM (Splunk)</span><span class="tag">Incident Response</span><span class="tag">Vulnerability Mgmt</span></div></div>
+        <div class="skill-card fade-in"><div class="skill-icon">🖥️</div><h3>Windows Server</h3><div class="skill-tags"><span class="tag">Active Directory</span><span class="tag">Group Policy</span><span class="tag">DHCP/DNS Server</span><span class="tag">User Management</span><span class="tag">File &amp; Print Services</span><span class="tag">Backup &amp; Recovery</span></div></div>
+        <div class="skill-card fade-in"><div class="skill-icon">⚙️</div><h3>Tools &amp; Platforms</h3><div class="skill-tags"><span class="tag">Cisco Packet Tracer</span><span class="tag">GNS3</span><span class="tag">Wireshark</span><span class="tag">VMware</span><span class="tag">VirtualBox</span><span class="tag">Splunk</span><span class="tag">Cisco IOS</span></div></div>
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects">
+      <div class="section-header"><span class="section-num">05</span><h2>Projects</h2></div>
+      <div class="projects-grid">
+        <div class="project-card">
+          <div class="project-header">
+            <div class="project-icon" id="d-projIcon">🏥</div>
+            <div class="project-meta">
+              <span class="project-badge" id="d-projBadge1">Cisco Packet Tracer</span>
+              <span class="project-badge badge-green" id="d-projBadge2">Networking</span>
+            </div>
+          </div>
+          <div class="project-title" id="d-projTitle">Hospital Management Network</div>
+          <div class="project-desc" id="d-projDesc">A fully designed enterprise network simulation for a hospital environment built in Cisco Packet Tracer. The topology covers multi-department segmentation using VLANs, inter-VLAN routing, DHCP, DNS, and access control policies to ensure secure and reliable communication across hospital departments.</div>
+          <div class="project-tags" id="d-projTagsEl"><span class="tag">VLANs</span><span class="tag">Routing &amp; Switching</span><span class="tag">DHCP</span><span class="tag">DNS</span><span class="tag">ACLs</span><span class="tag">Network Segmentation</span></div>
+          <div class="project-footer">
+            <a class="project-download" id="d-projFileLink" href="Hospital_Management_Network.pkt" download>⬇ Download .pkt File</a>
+            <span class="project-tool" id="d-projFileTool">Opens in Cisco Packet Tracer</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section id="services">
+      <div class="section-header"><span class="section-num">06</span><h2>Offered Services</h2></div>
+      <div class="services-grid">
+        <div class="service-card"><div class="service-icon">🛡️</div><div class="service-title">SOC Monitoring &amp; Alert Triage</div><div class="service-desc">Continuous monitoring of security events using SIEM platforms. Triaging alerts, filtering false positives, and escalating confirmed incidents with full documentation.</div><div class="service-tags"><span class="tag">Splunk</span><span class="tag">SIEM</span><span class="tag">Log Analysis</span></div></div>
+        <div class="service-card"><div class="service-icon">🔍</div><div class="service-title">Threat Detection &amp; Hunting</div><div class="service-desc">Proactive identification of hidden threats using IOCs, attack patterns, and MITRE ATT&amp;CK framework to detect adversaries before damage occurs.</div><div class="service-tags"><span class="tag">MITRE ATT&amp;CK</span><span class="tag">IOCs</span><span class="tag">Threat Intel</span></div></div>
+        <div class="service-card"><div class="service-icon">⚡</div><div class="service-title">Incident Response &amp; Handling</div><div class="service-desc">End-to-end incident handling covering containment, eradication, and recovery. Detailed post-incident reports with root cause analysis and remediation steps.</div><div class="service-tags"><span class="tag">DFIR</span><span class="tag">Playbooks</span><span class="tag">Reporting</span></div></div>
+        <div class="service-card"><div class="service-icon">🔒</div><div class="service-title">Vulnerability Assessment</div><div class="service-desc">Scanning and evaluating systems for security weaknesses, misconfigurations, and exploitable vulnerabilities with prioritized remediation recommendations.</div><div class="service-tags"><span class="tag">Vulnerability Mgmt</span><span class="tag">Risk Assessment</span></div></div>
+        <div class="service-card"><div class="service-icon">🌐</div><div class="service-title">Network Security Design</div><div class="service-desc">Designing and implementing secure network architectures with firewalls, IDS/IPS, ACLs, VLANs, and VPNs to protect enterprise infrastructure.</div><div class="service-tags"><span class="tag">Firewalls</span><span class="tag">IDS/IPS</span><span class="tag">VPN</span><span class="tag">ACLs</span></div></div>
+        <div class="service-card"><div class="service-icon">📊</div><div class="service-title">Security Reporting &amp; Documentation</div><div class="service-desc">Creating clear technical and executive security reports, incident summaries, and risk assessments tailored to both technical teams and management stakeholders.</div><div class="service-tags"><span class="tag">Technical Reports</span><span class="tag">Executive Briefs</span></div></div>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- CONTACT -->
+  <section class="contact-section" id="contact">
+    <div class="container">
+      <div class="contact-grid">
+        <div class="contact-text">
+          <div class="hero-tag">Let's Connect</div>
+          <h2 id="d-contactHeading">Open to Opportunities</h2>
+          <p id="d-contactDesc">Actively seeking entry-level SOC or Network Security roles. Ready to contribute to enterprise IT environments and grow within a motivated team.</p>
+          <div style="display:flex; gap:0.75rem; flex-wrap:wrap;">
+            <a id="d-btnEmail" href="mailto:zyadalsyd192@gmail.com" class="btn btn-primary">✉ SEND EMAIL</a>
+            <a id="d-btnWa" href="https://wa.me/201001234298" target="_blank" rel="noopener"
+               class="btn btn-outline" style="border-color:rgba(37,211,102,0.4);color:#25d366;">💬 WHATSAPP</a>
+            <a id="d-btnLinkedin" href="https://www.linkedin.com/in/zeyad-elsayed" target="_blank" rel="noopener"
+               class="btn btn-outline" style="border-color:rgba(10,102,194,0.4);color:#0a66c2;">in LINKEDIN</a>
+          </div>
+        </div>
+        <div class="contact-items">
+          <div class="contact-item">
+            <span class="ci-label">EMAIL</span>
+            <span>
+              <a id="d-emailLink" href="mailto:zyadalsyd192@gmail.com">
+                <svg viewBox="0 0 24 24"><path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.909v9.273H1.636A1.636 1.636 0 010 19.366V5.457c0-.904.732-1.636 1.636-1.636h.749L12 11.73l9.615-7.909h.749A1.636 1.636 0 0124 5.457z"/></svg>
+                <span id="d-emailText">zyadalsyd192@gmail.com</span>
+              </a>
+            </span>
+          </div>
+          <div class="contact-item">
+            <span class="ci-label">PHONE</span>
+            <span>
+              <a id="d-waLink" href="https://wa.me/201001234298" target="_blank" rel="noopener" class="whatsapp-link">
+                <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                <span id="d-phoneText">01001234298 · WhatsApp</span>
+              </a>
+            </span>
+          </div>
+          <div class="contact-item">
+            <span class="ci-label">LINKEDIN</span>
+            <span>
+              <a id="d-linkedinLink" href="https://www.linkedin.com/in/zeyad-elsayed" target="_blank" class="linkedin-link">
+                <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                <span id="d-linkedinDisplayText">linkedin.com/in/zeyad-elsayed</span>
+              </a>
+            </span>
+          </div>
+          <div class="contact-item">
+            <span class="ci-label">LOCATION</span>
+            <span id="d-location">Egypt</span>
+          </div>
+          <div class="contact-item">
+            <span class="ci-label">STATUS</span>
+            <span style="color:var(--accent2);" id="d-status">Available · Open to Work</span>
+          </div>
+          <div class="contact-item">
+            <span class="ci-label">LANGS</span>
+            <span id="d-langs">Arabic (Native) · English (Very Good)</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="container">
+    ZE//PORTFOLIO · <span id="d-footerName">ZEYAD ELSAYED</span> · NETWORK &amp; SECURITY ENGINEER · 2025
+  </div>
+</footer>
+
+<script>
+  // ── Load Cairo font ──
+  var cairoLink = document.createElement('link');
+  cairoLink.rel = 'stylesheet';
+  cairoLink.href = 'https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap';
+  document.head.appendChild(cairoLink);
+
+  // ── Language toggle ──
+  function setLang(lang) {
+    document.querySelectorAll('.lang-en').forEach(el => el.style.display = lang==='ar' ? 'none' : '');
+    document.querySelectorAll('.lang-ar').forEach(el => el.style.display = lang==='ar' ? '' : 'none');
+    document.getElementById('btnEn').classList.toggle('active', lang==='en');
+    document.getElementById('btnAr').classList.toggle('active', lang==='ar');
+    document.getElementById('usp').setAttribute('dir', lang==='ar' ? 'rtl' : 'ltr');
+  }
+
+  // ── Default data ──
+  const DEFAULTS = {
+    firstName: 'ZEYAD', lastName: 'ELSAYED',
+    heroTag: 'Network & Security Engineer',
+    heroDesc: 'Computer Information graduate from Tanta University with CCNA, MCSA, and Network Security certifications. Passionate about enterprise networking, SOC operations, and building secure, resilient IT environments.',
+    quoteEn: 'I Am the First Line of Defense — I Detect Threats Before They Cost You',
+    descEn: "I don't just monitor events — I transform chaotic data into actionable security intelligence. I combine analytical speed with technical depth to identify real threats from thousands of alerts, while maintaining operational continuity and protecting organizational assets around the clock.",
+    quoteAr: 'أنا خط الدفاع الأول — أكتشف التهديدات قبل أن تُكلّف',
+    descAr: 'لا أكتفي بمراقبة الأحداث — أحوّل البيانات الفوضوية إلى استخبارات أمنية قابلة للتنفيذ. أجمع بين السرعة التحليلية والعمق التقني لتحديد التهديدات الحقيقية من آلاف التنبيهات، مع الحفاظ على استمرارية العمليات وحماية أصول المؤسسة على مدار الساعة.',
+    email: 'zyadalsyd192@gmail.com',
+    phone: '201001234298',
+    location: 'Egypt',
+    status: 'Available · Open to Work',
+    langs: 'Arabic (Native) · English (Very Good)',
+    contactHeading: 'Open to Opportunities',
+    contactDesc: 'Actively seeking entry-level SOC or Network Security roles. Ready to contribute to enterprise IT environments and grow within a motivated team.',
+    linkedin: 'https://www.linkedin.com/in/zeyad-elsayed',
+    github: 'https://github.com/zeyad-elsayed',
+    linkedinDisplay: 'linkedin.com/in/zeyad-elsayed',
+    exp1date: 'FEB 2025 — PRESENT',
+    exp1title: 'Information Security Analyst Trainee',
+    exp1org: 'Digital Egypt Pioneers Initiative (DEPI) · 6-Month Program',
+    exp1desc: 'Comprehensive training in Infrastructure & Security focusing on Information Security Analysis.',
+    exp1bullets: 'SOC Essential Concepts & Security Operations Management\nVulnerability Management & Cyber Threat Analysis (IoCs, Attack Methodology)\nIncident Detection with SIEM tools and log analysis\nIncident Response & Management, Reporting & Communication\nCapstone Project with Prompt Engineering focus',
+    exp2date: 'MAY 2024 — JUL 2024',
+    exp2title: 'Cyber Operations Intern',
+    exp2org: 'National Telecommunication Institute (NTI)',
+    exp2desc: 'Hands-on experience in cybersecurity operations within a real SOC environment.',
+    exp2bullets: 'Monitored network traffic and security alerts using SIEM tools\nAnalyzed security logs and investigated suspicious activities\nAssisted implementation of firewall rules, IDS/IPS, and access controls\nParticipated in vulnerability assessments and threat detection exercises',
+    degree: 'Bachelor of Computers and Information',
+    university: 'Tanta University · Faculty of Computers and Information',
+    gradYear: 'GRADUATED 2026',
+    eduDesc: 'Relevant coursework: Computer Networks, Operating Systems, Database Management, Information Security.',
+    cert1badge: 'CISCO', cert1name: 'CCNA', cert1full: 'Cisco Certified Network Associate', cert1date: 'AUC · Aug 2023 – Jan 2024',
+    cert2badge: 'MICROSOFT', cert2name: 'MCSA', cert2full: 'Microsoft Certified Solutions Associate', cert2date: 'Feb 2024 – Apr 2024',
+    cert3badge: 'SECURITY', cert3name: 'Network Security & Cyber Operations', cert3full: 'Specialized cybersecurity certification', cert3date: 'May 2024',
+    projIcon: '🏥', projTitle: 'Hospital Management Network',
+    projDesc: 'A fully designed enterprise network simulation for a hospital environment built in Cisco Packet Tracer. The topology covers multi-department segmentation using VLANs, inter-VLAN routing, DHCP, DNS, and access control policies to ensure secure and reliable communication across hospital departments.',
+    projBadge1: 'Cisco Packet Tracer', projBadge2: 'Networking',
+    projTags: 'VLANs, Routing & Switching, DHCP, DNS, ACLs, Network Segmentation',
+    projFile: 'Hospital_Management_Network.pkt', projFileTool: 'Opens in Cisco Packet Tracer',
+  };
+
+  // ── Storage key ──
+  const SK = 'ze_portfolio_data';
+
+  function loadData() {
+    try { return Object.assign({}, DEFAULTS, JSON.parse(localStorage.getItem(SK)||'{}')); }
+    catch(e) { return Object.assign({}, DEFAULTS); }
+  }
+
+  function saveData(d) {
+    localStorage.setItem(SK, JSON.stringify(d));
+  }
+
+  // ── Render data to DOM ──
+  function renderAll(d) {
+    const s = (id, val) => { const el=document.getElementById(id); if(el) el.textContent=val; };
+    const h = (id, val) => { const el=document.getElementById(id); if(el) el.innerHTML=val; };
+    const a = (id, attr, val) => { const el=document.getElementById(id); if(el) el.setAttribute(attr,val); };
+
+    s('d-firstName', d.firstName);
+    s('d-lastName', d.lastName);
+    s('d-heroTag', d.heroTag);
+    s('d-heroDesc', d.heroDesc);
+    s('d-quoteEnText', d.quoteEn);
+    s('d-descEn', d.descEn);
+    s('d-quoteArText', d.quoteAr);
+    s('d-descAr', d.descAr);
+
+    // Contact info
+    s('d-emailText', d.email);
+    a('d-emailLink','href','mailto:'+d.email);
+    a('d-btnEmail','href','mailto:'+d.email);
+    a('d-linkEmailHero','href','mailto:'+d.email);
+
+    const waNum = d.phone.replace(/\D/g,'');
+    s('d-phoneText', '0'+waNum.slice(2)+' · WhatsApp');
+    a('d-waLink','href','https://wa.me/'+waNum);
+    a('d-btnWa','href','https://wa.me/'+waNum);
+    a('d-linkWaHero','href','https://wa.me/'+waNum);
+
+    s('d-location', d.location);
+    s('d-status', d.status);
+    s('d-langs', d.langs);
+    s('d-contactHeading', d.contactHeading);
+    s('d-contactDesc', d.contactDesc);
+
+    // Social links
+    a('d-linkedinLink','href', d.linkedin);
+    a('d-btnLinkedin','href', d.linkedin);
+    a('d-linkLinkedinHero','href', d.linkedin);
+    s('d-linkedinDisplayText', d.linkedinDisplay);
+    a('d-linkGithubHero','href', d.github);
+
+    // Experience
+    s('d-exp1date', d.exp1date); s('d-exp1title', d.exp1title);
+    s('d-exp1org', d.exp1org);   s('d-exp1desc', d.exp1desc);
+    const bl1 = document.getElementById('d-exp1bullets');
+    if(bl1) bl1.innerHTML = d.exp1bullets.split('\n').filter(x=>x.trim()).map(x=>`<li>${x.trim()}</li>`).join('');
+    s('d-exp2date', d.exp2date); s('d-exp2title', d.exp2title);
+    s('d-exp2org', d.exp2org);   s('d-exp2desc', d.exp2desc);
+    const bl2 = document.getElementById('d-exp2bullets');
+    if(bl2) bl2.innerHTML = d.exp2bullets.split('\n').filter(x=>x.trim()).map(x=>`<li>${x.trim()}</li>`).join('');
+
+    // Education
+    s('d-gradYear', d.gradYear); s('d-degree', d.degree);
+    s('d-university', d.university); s('d-eduDesc', d.eduDesc);
+
+    // Certs
+    s('d-cert1badge',d.cert1badge); s('d-cert1name',d.cert1name); s('d-cert1full',d.cert1full); s('d-cert1date',d.cert1date);
+    s('d-cert2badge',d.cert2badge); s('d-cert2name',d.cert2name); s('d-cert2full',d.cert2full); s('d-cert2date',d.cert2date);
+    s('d-cert3badge',d.cert3badge); s('d-cert3name',d.cert3name); s('d-cert3full',d.cert3full); s('d-cert3date',d.cert3date);
+
+    // Project
+    s('d-projIcon',d.projIcon); s('d-projTitle',d.projTitle); s('d-projDesc',d.projDesc);
+    s('d-projBadge1',d.projBadge1); s('d-projBadge2',d.projBadge2);
+    const tagsEl = document.getElementById('d-projTagsEl');
+    if(tagsEl) tagsEl.innerHTML = d.projTags.split(',').filter(t=>t.trim()).map(t=>`<span class="tag">${t.trim()}</span>`).join('');
+    a('d-projFileLink','href', d.projFile);
+    s('d-projFileTool', d.projFileTool);
+
+    // Footer
+    s('d-footerName', d.firstName + ' ' + d.lastName);
+  }
+
+  // ── Populate editor fields ──
+  function populateFields(d) {
+    const set = (id, val) => { const el=document.getElementById(id); if(el) el.value=val||''; };
+    set('f-firstName', d.firstName); set('f-lastName', d.lastName);
+    set('f-heroTag', d.heroTag); set('f-heroDesc', d.heroDesc);
+    set('f-quoteEn', d.quoteEn); set('f-descEn', d.descEn);
+    set('f-quoteAr', d.quoteAr); set('f-descAr', d.descAr);
+    set('f-email', d.email); set('f-phone', d.phone);
+    set('f-location', d.location); set('f-status', d.status);
+    set('f-langs', d.langs); set('f-contactHeading', d.contactHeading);
+    set('f-contactDesc', d.contactDesc);
+    set('f-linkedin', d.linkedin); set('f-github', d.github);
+    set('f-linkedinDisplay', d.linkedinDisplay);
+    set('f-exp1date', d.exp1date); set('f-exp1title', d.exp1title);
+    set('f-exp1org', d.exp1org);   set('f-exp1desc', d.exp1desc);
+    set('f-exp1bullets', d.exp1bullets);
+    set('f-exp2date', d.exp2date); set('f-exp2title', d.exp2title);
+    set('f-exp2org', d.exp2org);   set('f-exp2desc', d.exp2desc);
+    set('f-exp2bullets', d.exp2bullets);
+    set('f-degree', d.degree); set('f-university', d.university);
+    set('f-gradYear', d.gradYear); set('f-eduDesc', d.eduDesc);
+    set('f-cert1badge',d.cert1badge); set('f-cert1name',d.cert1name);
+    set('f-cert1full',d.cert1full);   set('f-cert1date',d.cert1date);
+    set('f-cert2badge',d.cert2badge); set('f-cert2name',d.cert2name);
+    set('f-cert2full',d.cert2full);   set('f-cert2date',d.cert2date);
+    set('f-cert3badge',d.cert3badge); set('f-cert3name',d.cert3name);
+    set('f-cert3full',d.cert3full);   set('f-cert3date',d.cert3date);
+    set('f-projIcon',d.projIcon); set('f-projTitle',d.projTitle);
+    set('f-projDesc',d.projDesc); set('f-projBadge1',d.projBadge1);
+    set('f-projBadge2',d.projBadge2); set('f-projTags',d.projTags);
+    set('f-projFile',d.projFile); set('f-projFileTool',d.projFileTool);
+  }
+
+  function readFields() {
+    const g = id => { const el=document.getElementById(id); return el ? el.value : ''; };
+    return {
+      firstName:g('f-firstName'), lastName:g('f-lastName'),
+      heroTag:g('f-heroTag'), heroDesc:g('f-heroDesc'),
+      quoteEn:g('f-quoteEn'), descEn:g('f-descEn'),
+      quoteAr:g('f-quoteAr'), descAr:g('f-descAr'),
+      email:g('f-email'), phone:g('f-phone'),
+      location:g('f-location'), status:g('f-status'), langs:g('f-langs'),
+      contactHeading:g('f-contactHeading'), contactDesc:g('f-contactDesc'),
+      linkedin:g('f-linkedin'), github:g('f-github'),
+      linkedinDisplay:g('f-linkedinDisplay'),
+      exp1date:g('f-exp1date'), exp1title:g('f-exp1title'),
+      exp1org:g('f-exp1org'),   exp1desc:g('f-exp1desc'), exp1bullets:g('f-exp1bullets'),
+      exp2date:g('f-exp2date'), exp2title:g('f-exp2title'),
+      exp2org:g('f-exp2org'),   exp2desc:g('f-exp2desc'), exp2bullets:g('f-exp2bullets'),
+      degree:g('f-degree'), university:g('f-university'),
+      gradYear:g('f-gradYear'), eduDesc:g('f-eduDesc'),
+      cert1badge:g('f-cert1badge'), cert1name:g('f-cert1name'),
+      cert1full:g('f-cert1full'),   cert1date:g('f-cert1date'),
+      cert2badge:g('f-cert2badge'), cert2name:g('f-cert2name'),
+      cert2full:g('f-cert2full'),   cert2date:g('f-cert2date'),
+      cert3badge:g('f-cert3badge'), cert3name:g('f-cert3name'),
+      cert3full:g('f-cert3full'),   cert3date:g('f-cert3date'),
+      projIcon:g('f-projIcon'), projTitle:g('f-projTitle'),
+      projDesc:g('f-projDesc'), projBadge1:g('f-projBadge1'),
+      projBadge2:g('f-projBadge2'), projTags:g('f-projTags'),
+      projFile:g('f-projFile'), projFileTool:g('f-projFileTool'),
+    };
+  }
+
+  function applyChanges() {
+    const d = readFields();
+    saveData(d);
+    renderAll(d);
+    showToast('✓ SAVED & APPLIED');
+  }
+
+  function resetAll() {
+    if(!confirm('Reset all data to defaults?')) return;
+    localStorage.removeItem(SK);
+    const d = Object.assign({}, DEFAULTS);
+    populateFields(d);
+    renderAll(d);
+    showToast('↺ RESET TO DEFAULTS');
+  }
+
+  function showToast(msg) {
+    const t = document.getElementById('ep-toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2500);
+  }
+
+  // ══════════════════════════════════════════════
+  // PASSWORD SYSTEM
+  // ══════════════════════════════════════════════
+  const PW_KEY     = 'ze_admin_pw';
+  const PW_DEFAULT = 'admin1234';
+  const MAX_TRIES  = 5;
+  const LOCK_SECS  = 60;
+  let   pwAttempts = 0;
+  let   pwLocked   = false;
+  let   lockTimer  = null;
+  let   adminUnlocked = false;
+
+  function getStoredPw() {
+    return localStorage.getItem(PW_KEY) || PW_DEFAULT;
+  }
+
+  function openPwModal() {
+    const ov = document.getElementById('pwOverlay');
+    const inp = document.getElementById('pwInput');
+    document.getElementById('pwError').textContent = '';
+    document.getElementById('pwAttempts').textContent = '';
+    inp.value = '';
+    inp.classList.remove('error');
+    ov.classList.add('show');
+    setTimeout(() => inp.focus(), 200);
+  }
+
+  function closePwModal() {
+    document.getElementById('pwOverlay').classList.remove('show');
+  }
+
+  function submitPw() {
+    if (pwLocked) return;
+    const inp = document.getElementById('pwInput');
+    const err = document.getElementById('pwError');
+    const att = document.getElementById('pwAttempts');
+    const val = inp.value;
+
+    if (val === getStoredPw()) {
+      // ✅ Correct
+      adminUnlocked = true;
+      pwAttempts = 0;
+      closePwModal();
+      openEditorPanel();
+      showToast('🔓 EDITOR UNLOCKED');
+    } else {
+      // ❌ Wrong
+      pwAttempts++;
+      inp.classList.remove('error');
+      void inp.offsetWidth; // reflow for animation replay
+      inp.classList.add('error');
+      inp.value = '';
+
+      const remaining = MAX_TRIES - pwAttempts;
+      if (remaining <= 0) {
+        lockEditor();
+      } else {
+        err.textContent = '✗ INCORRECT PASSWORD';
+        att.textContent = `${remaining} attempt${remaining!==1?'s':''} remaining`;
+      }
+    }
+  }
+
+  function lockEditor() {
+    pwLocked = true;
+    const inp = document.getElementById('pwInput');
+    const sub = document.getElementById('pwSubmit');
+    const lk  = document.getElementById('pwLockMsg');
+    const err = document.getElementById('pwError');
+    const att = document.getElementById('pwAttempts');
+    const cd  = document.getElementById('pwCountdown');
+
+    inp.disabled = true;
+    sub.disabled = true;
+    sub.style.opacity = '0.4';
+    err.textContent = '';
+    att.textContent = '';
+    lk.style.display = 'block';
+
+    let secs = LOCK_SECS;
+    cd.textContent = secs;
+    lockTimer = setInterval(() => {
+      secs--;
+      cd.textContent = secs;
+      if (secs <= 0) {
+        clearInterval(lockTimer);
+        pwLocked   = false;
+        pwAttempts = 0;
+        inp.disabled = false;
+        sub.disabled = false;
+        sub.style.opacity = '';
+        lk.style.display = 'none';
+        att.textContent = 'You may try again';
+        inp.focus();
+      }
+    }, 1000);
+  }
+
+  function changePassword() {
+    const cur  = document.getElementById('f-pwCurrent').value;
+    const nw   = document.getElementById('f-pwNew').value;
+    const conf = document.getElementById('f-pwConfirm').value;
+    const msg  = document.getElementById('pw-change-msg');
+
+    if (cur !== getStoredPw()) {
+      msg.style.color = '#e63946';
+      msg.textContent = '✗ Current password is incorrect';
+      return;
+    }
+    if (nw.length < 4) {
+      msg.style.color = '#e63946';
+      msg.textContent = '✗ New password must be at least 4 characters';
+      return;
+    }
+    if (nw !== conf) {
+      msg.style.color = '#e63946';
+      msg.textContent = '✗ Passwords do not match';
+      return;
+    }
+    localStorage.setItem(PW_KEY, nw);
+    document.getElementById('f-pwCurrent').value = '';
+    document.getElementById('f-pwNew').value = '';
+    document.getElementById('f-pwConfirm').value = '';
+    msg.style.color = '#00ff88';
+    msg.textContent = '✓ Password updated successfully!';
+    setTimeout(() => { msg.textContent = ''; }, 3000);
+    showToast('🔑 PASSWORD CHANGED');
+  }
+
+  function logoutEditor() {
+    adminUnlocked = false;
+    closeEditorPanel();
+    showToast('🔒 EDITOR LOCKED');
+  }
+
+  // ── Panel open/close (separated from toggle) ──
+  function openEditorPanel() {
+    const p = document.getElementById('editPanel');
+    const b = document.getElementById('editToggleBtn');
+    p.classList.add('open');
+    b.classList.add('active');
+    b.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg> CLOSE';
+  }
+
+  function closeEditorPanel() {
+    const p = document.getElementById('editPanel');
+    const b = document.getElementById('editToggleBtn');
+    p.classList.remove('open');
+    b.classList.remove('active');
+    b.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a1 1 0 000-1.41l-2.34-2.34a1 1 0 00-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg> ✏ EDIT MODE';
+  }
+
+  // ── Panel & tab controls ──
+  function togglePanel() {
+    const p = document.getElementById('editPanel');
+    if (p.classList.contains('open')) {
+      // Already open → just close
+      closeEditorPanel();
+    } else {
+      // Needs to open — check auth first
+      if (adminUnlocked) {
+        openEditorPanel();
+      } else {
+        openPwModal();
+      }
+    }
+  }
+
+  function switchTab(id) {
+    document.querySelectorAll('.ep-pane').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.ep-tab').forEach(t => t.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    event.target.classList.add('active');
+  }
+
+  // ── Init ──
+  const data = loadData();
+  populateFields(data);
+  renderAll(data);
+
+  // Set initial button label
+  document.getElementById('editToggleBtn').innerHTML =
+    '<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a1 1 0 000-1.41l-2.34-2.34a1 1 0 00-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg> ✏ EDIT MODE';
+
+  // ESC key: close modal or panel
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      if (document.getElementById('pwOverlay').classList.contains('show')) {
+        closePwModal();
+      } else {
+        closeEditorPanel();
+      }
+    }
+    // Enter inside password field handled inline
+  });
+
+  // Click outside modal box → close modal
+  document.getElementById('pwOverlay').addEventListener('click', function(e) {
+    if (e.target === this) closePwModal();
+  });
+</script>
+</body>
+</html>
